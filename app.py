@@ -98,7 +98,7 @@ def get_questions():
 
 @app.route('/question/<int:id>', methods=["GET", "DELETE", "PUT"])
 @app.route('/question', methods=["POST"])
-def question_func():
+def question_func(id=None):
     if request.method == "POST":
         data = request.get_json(force=True)
         question = data["question"]
