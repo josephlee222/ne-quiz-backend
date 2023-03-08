@@ -86,7 +86,7 @@ def quiz_func(id=None):
             data = request.json
 
             if "title" in data:
-                quiz.title = data["question"]
+                quiz.title = data["title"]
             if "description" in data:
                 quiz.description = data["description"]
             if "image_url" in data:
