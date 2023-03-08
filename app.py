@@ -12,12 +12,14 @@ class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128))
     description = db.Column(db.String(256))
+    image_url = db.Column(db.String(512))
 
     def json(self):
         return {
             "id": self.id,
             "title": self.title,
-            "description": self.description
+            "description": self.description,
+            "image_url": self.image_url
         }
 
     def json_with_questions(self):
@@ -26,7 +28,8 @@ class Quiz(db.Model):
             "id": self.id,
             "title": self.title,
             "description": self.description,
-            "questions": [question.json() for question in questions]
+            "questions": [question.json() for question in questions],
+            "image_url": self.image_url
         }
 
 
@@ -63,7 +66,8 @@ def quiz_func(id=None):
         data = request.get_json(force=True)
         title = data["title"]
         description = data["description"]
-        quiz = Quiz(title=title, description=description)
+        image_url = data["image_url"]
+        quiz = Quiz(title=title, description=description, image_url=image_url)
         db.session.add(quiz)
         db.session.commit()
     else:
@@ -83,6 +87,8 @@ def quiz_func(id=None):
                 quiz.title = data["question"]
             if "answer" in data:
                 quiz.description = data["description"]
+            if "image_url" in data:
+                quiz.image_url = data["image_url"]
 
             db.session.commit()
 
