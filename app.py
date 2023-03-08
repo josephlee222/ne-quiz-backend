@@ -85,9 +85,9 @@ def quiz_func(id=None):
         if request.method == "PUT":
             data = request.json
 
-            if "question" in data:
+            if "title" in data:
                 quiz.title = data["question"]
-            if "answer" in data:
+            if "description" in data:
                 quiz.description = data["description"]
             if "image_url" in data:
                 quiz.image_url = data["image_url"]
